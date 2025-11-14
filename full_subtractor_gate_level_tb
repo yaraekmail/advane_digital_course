@@ -1,0 +1,31 @@
+// Code your design here
+module fs(s,cout,a,b,cin);
+  input a,b,cin;
+  output s,cout;
+  wire w1,w2,w3,w4;
+  not g1(w1,b);
+  and g2(w2,a,w1);
+  and g3(w3,a,cin);
+  and g4(w4,w1,cin);
+  xor g5(s,a,w1,cin);
+  or g6(cout,w2,w3,w4);
+endmodule
+
+// Code your testbench here
+// or browse Examples
+module  test;
+wire s,cout;
+  reg a,b,cin;
+  fs q(s,cout,a,b,cin);
+  initial
+    begin
+       a = 1'b0; b = 1'b0; cin = 1'b0;
+    #5 a = 1'b0; b = 1'b1; cin = 1'b1;
+    #5 a = 1'b1; b = 1'b0; cin = 1'b1;
+    #5 a = 1'b1; b = 1'b1; cin = 1'b1;
+      
+    end
+  initial
+    $monitor("A=%b,B=%b,CIN=%b,S=%b,COUT=%b\n",a,b,cin,s,cout);
+endmodule
+  
