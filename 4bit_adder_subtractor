@@ -1,0 +1,60 @@
+// Code your design here
+// Code your design here
+module fas(s,cout,a,b,cin);
+  input a,b,cin;
+  output s,cout;
+  wire w1,w2,w3,w4;
+  xor g1(w1,b,cin);
+   xor g2(s,a,w1,cin);
+ 
+  and g3(w2,a,w1);
+  and g4(w3,a,cin);
+  and g5(w4,w1,cin);
+  or g6(cout,w2,w3,w4);
+ 
+endmodule
+
+module fbas(s,cout,a,b,cin);
+  input [3:0] b,a;
+  output [3:0] s;
+  output cout;
+  input cin;
+  
+  wire c1, c2, c3;
+
+  fas fs0(s[0], c1, a[0], b[0], cin);
+ fas fs1(s[1], c2, a[1], b[1], c1);
+  fas fs2(s[2], c3, a[2], b[2], c2);
+  fas fs3(s[3], cout, a[3], b[3], c3);
+endmodule
+
+
+// Code your testbench here
+// or browse Examples
+module test;
+  reg [3:0] a, b;
+  reg cin;
+  wire [3:0] s;
+  wire cout;
+
+  
+  fbas UUT (s, cout, a, b, cin);
+
+  initial
+    begin
+   
+    a = 4'b0000; b = 4'b0000; cin = 1'b0;  // 0 + 0
+    #5 a = 4'b0101; b = 4'b0100; cin = 1'b0;  // 5 + 4
+    #5 a = 4'b1000; b = 4'b0100; cin = 1'b0;  // 8 + 4
+    #5 a = 4'b1111; b = 4'b1111; cin = 1'b0;  // 15 + 15
+    #5 a = 4'b1111; b = 4'b1111; cin = 1'b1;  // 15 - 15
+  end
+
+  initial begin
+    $monitor("A=%d  B=%d  CIN=%b  →  S=%d  COUT=%b",
+              a, b, cin, s, cout);
+  end
+
+endmodule
+  
+  
