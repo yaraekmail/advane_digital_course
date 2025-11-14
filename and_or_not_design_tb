@@ -1,0 +1,25 @@
+// Code your design here
+module circuit(d,e,a,b,c);
+  output d,e;
+  input a,b,c;
+  wire w1;
+  and g1 (w1,a,b);
+  not g3(e,c);
+  or g2(d,e,w1);
+  endmodule
+
+// Code your testbench here
+// or browse Examples
+module  test;
+  wire d,e;
+  reg a,b,c;
+  circuit c1 (d,e,a,b,c);
+  initial 
+    begin 
+      a=1'b0;b=1'b0;c=1'b0;
+  #5  a=1'b1;b=1'b1;c=1'b0;
+  #5  a=1'b1;b=1'b0;c=1'b0;
+    end
+  initial 
+    $monitor("A=%b,B=%b,C=%b,D=%b,E=%b\n",a,b,c,d,e);
+  endmodule
