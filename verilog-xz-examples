@@ -1,0 +1,27 @@
+// Code your design here
+// Code your design here
+module tst(b,a);
+  input [11:0]a;
+  output [11:0]b;
+  assign b=a;
+endmodule
+  
+  
+// Code your testbench here
+// or browse Examples
+  module test;
+  reg [11:0]a;
+  wire [11:0]b;
+  tst t1(b,a);
+  initial 
+    begin 
+     a=12'hx3;
+ #2 a=12'bx1;
+ #2 a=12'hxx;
+ #2 a=12'hxx1;
+#2 a=12'h4xz;
+ #2 a=120;
+  end
+  initial
+    $monitor("A=%b B=%b \n",a,b);
+endmodule
