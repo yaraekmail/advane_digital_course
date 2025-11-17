@@ -1,0 +1,34 @@
+// Code your design here
+module test (d, x, y);
+  input x, y;
+  output d;
+
+  wire w1, w2, w3, w4;
+
+  not  #3 (w1, x);      
+  not  #3 (w2, y);      
+  and  #6 (w3, x, w2); 
+  and  #6 (w4, w1, y);
+  or   #8 (d, w3, w4);  
+
+endmodule
+
+// Code your testbench here
+// or browse Examples
+	module tst;
+      wire d;
+      reg x,y;
+      test t1(d,x,y);
+      initial
+        begin
+          x=1'b0;y=1'b0;
+          #50 x=1'b0;y=1'b1;
+        end
+      initial 
+        #100 $finish;
+      initial 
+        begin
+          $dumpfile("dump.vcd");
+          $dumpvars(1);
+        end
+    endmodule
